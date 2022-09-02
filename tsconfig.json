@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"module": "ES2022",
+		"lib": ["ES2022", "DOM"],
+		"noImplicitAny": true,
+		"noUnusedParameters": true,
+		"noUnusedLocals": true,
+		"sourceMap": true,
+		"target": "ES2022",
+		"strict": true,
+		"typeRoots": ["node_modules/@types"]
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "**/*.test.js"]
+}
