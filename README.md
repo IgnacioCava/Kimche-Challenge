@@ -3,7 +3,7 @@
 Postulante: Ignacio Cava  
 Deploy: 
 
-Jira: https://kimchechallenge.atlassian.net/jira/software/projects/KC/boards/1
+Jira: https://kimchechallenge.atlassian.net/jira/software/projects/KC/boards/1  
 Figma: https://www.figma.com/file/IVJfStLkgL8f64lvIm5oYw/Kimche-Challenge
 
 ## Pregunta abierta
