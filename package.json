@@ -34,9 +34,9 @@
 			"eslint --fix",
 			"prettier --write"
 		],
-    "src/**/*.styled.js":[
-      "stylelint"
-    ]
+		"src/**/*.styled.js":[
+			"stylelint"
+		]
 	},
 	"browserslist": {
 		"production": [
