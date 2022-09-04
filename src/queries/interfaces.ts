@@ -37,10 +37,8 @@ export interface FetchProps {
 	query?: string
 }
 
-export type FetchAction = ({ query }: FetchProps) => JSX.Element | null
+export type FetchAction = (props: FetchProps) => JSX.Element | null
 
 export interface Languages extends Language {
 	countries: Country[]
 }
-
-export type NormalizedOutput = Continent[] | Languages[]
