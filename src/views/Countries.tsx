@@ -16,6 +16,7 @@ import {
 } from '../helpers/interfaces'
 import { sortData } from '../helpers/sorters'
 import { useUpdate } from '../helpers/useUpdate'
+import { filterByQuery } from '../helpers/filterByQuery'
 
 export const FetchCountries: FetchAction = ({
 	type,
@@ -26,31 +27,39 @@ export const FetchCountries: FetchAction = ({
 		type === 'continent' ? COUNTRIES_BY_CONTINENT : COUNTRIES_AND_LANGUAGES
 	)
 
-	const [currentData, setCurrentData] = useState<NormalizedOutput>([])
+	// Extraer varias instancias de los mismos datos ocupa más espacio pero permite que los algoritmos de query y sort sean más rápidos
+	const [mappedData, setMappedData] = useState<NormalizedOutput>([]) // Data mapeada a NormalizedInput
+	const [filteredData, setFilteredData] = useState<NormalizedOutput>([]) // Data filtrada por query
+	const [sortedData, setSortedData] = useState<NormalizedOutput>([]) // Data organizada por sort
+
 	const update = useUpdate()
 
 	useEffect(() => {
 		if (!loading && data) {
-			setCurrentData(
+			setMappedData(
 				type === 'continent'
-					? countriesByContinent({ data, query } as ContinentMapProps)
-					: countriesByLanguage({ data, query } as LanguageMapProps)
+					? countriesByContinent({ data } as ContinentMapProps)
+					: countriesByLanguage({ data } as LanguageMapProps)
 			)
 		}
-		//update()
 	}, [data, type])
 
 	useEffect(() => {
-		setCurrentData(sortData({ data: currentData, sort }))
+		setFilteredData(filterByQuery({ data: mappedData, query }))
 		update()
-	}, [sort])
+	}, [query, mappedData])
+
+	useEffect(() => {
+		setSortedData(sortData({ data: filteredData, sort }))
+		update()
+	}, [sort, filteredData])
 
 	if (error) return <div>error</div>
 	else if (loading) return <div>loading</div>
-	else if (currentData)
+	else if (sortedData)
 		return (
 			<div>
-				{currentData.map((e) => (
+				{(sortedData.length ? sortedData : mappedData).map((e) => (
 					<div key={e.code}>
 						<h3>{e.name}</h3>
 						<small>
