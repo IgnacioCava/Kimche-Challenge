@@ -1,4 +1,4 @@
-import { MouseEvent, Dispatch, SetStateAction } from 'react'
+import { MouseEvent, FormEvent, Dispatch, SetStateAction } from 'react'
 import { ByContinent, ByLanguage } from '../queries/interfaces'
 import { Continent, Languages, SortBy, QueryBy } from '../queries/interfaces'
 
@@ -23,7 +23,28 @@ export type SortHandler = (
 	event: MouseEvent<HTMLButtonElement>,
 	set: Dispatch<SetStateAction<SortBy>>
 ) => void
+
 export type QueryHandler = (
 	event: MouseEvent<HTMLButtonElement>,
 	set: Dispatch<SetStateAction<QueryBy>>
 ) => void
+
+export type SearchHandler = (
+	event: FormEvent<HTMLInputElement>,
+	set: Dispatch<SetStateAction<string>>
+) => void
+
+interface Props {
+	data: NormalizedOutput
+}
+
+export interface SorterProps extends Props {
+	sort: SortBy
+}
+
+export interface QueryProps extends Props {
+	query: string
+}
+
+export type Sorter = (props: SorterProps) => NormalizedOutput
+export type QueryFilter = (props: QueryProps) => NormalizedOutput

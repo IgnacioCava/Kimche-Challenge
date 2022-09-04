@@ -1,4 +1,4 @@
-import { SortHandler, QueryHandler } from './interfaces'
+import { SortHandler, QueryHandler, SearchHandler } from './interfaces'
 import { QueryBy, SortBy } from '../queries/interfaces'
 
 export const handleQueryType: QueryHandler = (event, set) => {
@@ -14,4 +14,9 @@ export const handleSortType: SortHandler = (event, set) => {
 				? '-' + newType
 				: newType) as SortBy
 	)
+}
+
+export const handleSearch: SearchHandler = (event, set) => {
+	const searched = event.currentTarget.value
+	set(searched)
 }

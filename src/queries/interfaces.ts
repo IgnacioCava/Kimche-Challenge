@@ -1,6 +1,6 @@
 export interface Language {
 	name: 'string'
-	code?: 'string'
+	code: 'string'
 }
 
 export interface Continent {
@@ -34,7 +34,7 @@ export type SortBy = 'name' | 'count' | '-name' | '-count'
 export interface FetchProps {
 	type: QueryBy
 	sort: SortBy
-	query?: string
+	query: string
 }
 
 export type FetchAction = (props: FetchProps) => JSX.Element | null

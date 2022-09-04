@@ -6,7 +6,12 @@ import { FetchCountries } from './views/Countries'
 import { QueryBy, SortBy } from './queries/interfaces'
 import { Sorter } from './components/Sorter'
 import { QuerySelector } from './components/QuerySelector'
-import { handleQueryType, handleSortType } from './helpers/handlers'
+import { SearchBar } from './components/Searchbar'
+import {
+	handleQueryType,
+	handleSortType,
+	handleSearch
+} from './helpers/handlers'
 
 const client = new ApolloClient({
 	uri: 'https://countries.trevorblades.com',
@@ -16,6 +21,7 @@ const client = new ApolloClient({
 const App = () => {
 	const [queryType, setQueryType] = useState<QueryBy>('continent')
 	const [sort, setSortType] = useState<SortBy>('name')
+	const [searchedQuery, setSearched] = useState<string>('')
 
 	useEffect(() => {
 		setSortType('name')
@@ -24,12 +30,16 @@ const App = () => {
 	return (
 		<ApolloProvider client={client}>
 			<div>
+				<SearchBar
+					set={(e) => handleSearch(e, setSearched)}
+					value={searchedQuery}
+				/>
 				<QuerySelector
 					set={(e) => handleQueryType(e, setQueryType)}
 					value={queryType}
 				/>
 				<Sorter set={(e) => handleSortType(e, setSortType)} value={sort} />
-				<FetchCountries type={queryType} sort={sort} />
+				<FetchCountries type={queryType} query={searchedQuery} sort={sort} />
 			</div>
 		</ApolloProvider>
 	)

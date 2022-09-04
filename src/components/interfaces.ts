@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react'
+import { MouseEvent, FormEvent } from 'react'
 import { QueryBy, SortBy } from '../queries/interfaces'
 
 export interface SorterComponentProps {
@@ -11,5 +11,11 @@ export interface QuerySelectorProps {
 	value: QueryBy
 }
 
+export interface SearchComponentProps {
+	set: (event: FormEvent<HTMLInputElement>) => void
+	value: string
+}
+
 export type SorterComponent = (props: SorterComponentProps) => JSX.Element
 export type QuerySelectorComponent = (props: QuerySelectorProps) => JSX.Element
+export type SearchComponent = (props: SearchComponentProps) => JSX.Element
