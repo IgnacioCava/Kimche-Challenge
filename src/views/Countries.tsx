@@ -14,13 +14,20 @@ import {
 	LanguageMapProps,
 	NormalizedOutput
 } from '../helpers/interfaces'
+import { sortData } from '../helpers/sorters'
+import { useUpdate } from '../helpers/useUpdate'
 
-export const FetchCountries: FetchAction = ({ type, query }: FetchProps) => {
+export const FetchCountries: FetchAction = ({
+	type,
+	query,
+	sort
+}: FetchProps) => {
 	const { data, loading, error } = useQuery<Either<ByContinent, ByLanguage>>(
 		type === 'continent' ? COUNTRIES_BY_CONTINENT : COUNTRIES_AND_LANGUAGES
 	)
 
 	const [currentData, setCurrentData] = useState<NormalizedOutput>([])
+	const update = useUpdate()
 
 	useEffect(() => {
 		if (!loading && data) {
@@ -30,7 +37,13 @@ export const FetchCountries: FetchAction = ({ type, query }: FetchProps) => {
 					: countriesByLanguage({ data, query } as LanguageMapProps)
 			)
 		}
+		//update()
 	}, [data, type])
+
+	useEffect(() => {
+		setCurrentData(sortData({ data: currentData, sort }))
+		update()
+	}, [sort])
 
 	if (error) return <div>error</div>
 	else if (loading) return <div>loading</div>
