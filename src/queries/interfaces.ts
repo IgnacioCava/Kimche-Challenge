@@ -1,37 +1,46 @@
-interface Language {
+export interface Language {
 	name: 'string'
 	code?: 'string'
 }
 
-interface Country {
+export interface Continent {
+	name: string
+	code: string
+	countries: Country[]
+}
+
+export interface Country {
 	name: string
 	code: string
 	native: string
 	capital: string
 	emoji: string
-	languages: Array<Language>
+	languages: Language[]
 	continent?: { name: string }
 }
 
-interface Continent {
-	name: string
-	code: string
-	countries: Array<Country>
-}
-
 export interface ByContinent {
-	continents: Array<Continent>
+	continents: Continent[]
 }
 
 export interface ByLanguage {
-	countries: Array<Country>
-	languages: Array<Language>
+	countries: Country[]
+	languages: Language[]
 }
 
 export type QueryBy = 'continent' | 'language'
+export type SortBy = 'name' | 'count' | '-name' | '-count'
 
 export interface FetchProps {
-	query?: QueryBy
+	type: QueryBy
+	sort: SortBy
+	query?: string
 }
 
 export type FetchAction = ({ query }: FetchProps) => JSX.Element | null
+
+export interface Languages extends Language {
+	countries: Country[]
+}
+
+export type NormalizedOutput = Continent[] | Languages[]

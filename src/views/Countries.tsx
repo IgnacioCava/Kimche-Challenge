@@ -7,21 +7,44 @@ import {
 	FetchAction
 } from '../queries/interfaces'
 import { Either } from '../queries/types'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { countriesByContinent, countriesByLanguage } from '../helpers/mappers'
+import {
+	ContinentMapProps,
+	LanguageMapProps,
+	NormalizedOutput
+} from '../helpers/interfaces'
 
-export const FetchCountries: FetchAction = ({ query }: FetchProps) => {
+export const FetchCountries: FetchAction = ({ type, query }: FetchProps) => {
 	const { data, loading, error } = useQuery<Either<ByContinent, ByLanguage>>(
-		query === 'continent' ? COUNTRIES_BY_CONTINENT : COUNTRIES_AND_LANGUAGES
+		type === 'continent' ? COUNTRIES_BY_CONTINENT : COUNTRIES_AND_LANGUAGES
 	)
-	// console.log(data)
+
+	const [currentData, setCurrentData] = useState<NormalizedOutput>([])
+
+	useEffect(() => {
+		if (!loading && data) {
+			setCurrentData(
+				type === 'continent'
+					? countriesByContinent({ data, query } as ContinentMapProps)
+					: countriesByLanguage({ data, query } as LanguageMapProps)
+			)
+		}
+	}, [data, type])
 
 	if (error) return <div>error</div>
 	else if (loading) return <div>loading</div>
-	else if (data)
+	else if (currentData)
 		return (
 			<div>
-				{data?.countries?.length}
-				{data?.continents?.length}
+				{currentData.map((e) => (
+					<div key={e.code}>
+						<h3>{e.name}</h3>
+						<small>
+							{e.countries?.map((country) => country.name).join(', ')}
+						</small>
+					</div>
+				))}
 			</div>
 		)
 	else return null
