@@ -1,6 +1,12 @@
 import { MouseEvent, FormEvent, Dispatch, SetStateAction } from 'react'
-import { ByContinent, ByLanguage } from '../queries/interfaces'
-import { Continent, Languages, SortBy, QueryBy } from '../queries/interfaces'
+import {
+	Continent,
+	Languages,
+	SortBy,
+	QueryBy,
+	ByContinent,
+	ByLanguage
+} from '../queries/interfaces'
 
 interface DataMapProps {
 	query: string
@@ -34,6 +40,12 @@ export type SearchHandler = (
 	set: Dispatch<SetStateAction<string>>
 ) => void
 
+export type PageHandler = (
+	event: FormEvent<HTMLInputElement>,
+	set: Dispatch<SetStateAction<number>>,
+	amount: number
+) => void
+
 interface Props {
 	data: NormalizedOutput
 }
@@ -48,3 +60,8 @@ export interface QueryProps extends Props {
 
 export type Sorter = (props: SorterProps) => NormalizedOutput
 export type QueryFilter = (props: QueryProps) => NormalizedOutput
+
+export interface SectionsProps {
+	data: NormalizedOutput
+	direction: SortBy
+}

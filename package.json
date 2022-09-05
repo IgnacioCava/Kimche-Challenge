@@ -34,7 +34,7 @@
 			"eslint --fix",
 			"prettier --write"
 		],
-		"src/**/*.styled.js":[
+		"src/**/styled.js": [
 			"stylelint"
 		]
 	},

@@ -16,7 +16,7 @@ export interface Country {
 	capital: string
 	emoji: string
 	languages: Language[]
-	continent?: { name: string }
+	continent?: { name: string; code: string }
 }
 
 export interface ByContinent {
