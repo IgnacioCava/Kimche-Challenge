@@ -1,4 +1,9 @@
-import { SortHandler, QueryHandler, SearchHandler } from './interfaces'
+import {
+	SortHandler,
+	QueryHandler,
+	SearchHandler,
+	PageHandler
+} from './interfaces'
 import { QueryBy, SortBy } from '../queries/interfaces'
 
 export const handleQueryType: QueryHandler = (event, set) => {
@@ -19,4 +24,9 @@ export const handleSortType: SortHandler = (event, set) => {
 export const handleSearch: SearchHandler = (event, set) => {
 	const searched = event.currentTarget.value
 	set(searched)
+}
+
+export const handlePage: PageHandler = (event, set, amount) => {
+	const moveBy = parseInt(event.currentTarget.value)
+	set((page) => (page + moveBy >= 0 && moveBy < amount ? moveBy : page))
 }

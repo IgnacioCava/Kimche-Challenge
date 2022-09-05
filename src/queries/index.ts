@@ -14,6 +14,10 @@ export const COUNTRIES_BY_CONTINENT = gql`
 				languages {
 					name
 				}
+				continent {
+					name
+					code
+				}
 			}
 		}
 	}
@@ -29,6 +33,7 @@ export const COUNTRIES_AND_LANGUAGES = gql`
 			emoji
 			continent {
 				name
+				code
 			}
 			languages {
 				name
