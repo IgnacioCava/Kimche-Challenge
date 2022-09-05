@@ -20,7 +20,7 @@ export const TypeCard: TypeCardComponent = ({ data }: TypeCardProps) => {
 				<Subtext>, {data.countries.length} countries</Subtext>
 			</Title>
 			<Distributor>
-				{data.countries?.slice(page, page + 3).map((country) => (
+				{data.countries?.slice(page * 3, page * 3 + 3).map((country) => (
 					<CountryCard key={country.code} country={country} />
 				))}
 			</Distributor>

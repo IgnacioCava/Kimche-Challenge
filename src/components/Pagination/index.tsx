@@ -28,7 +28,7 @@ export const Pagination: Paginator = ({
 	}, [page, maxPages])
 
 	return (
-		<PaginationWrapper limit={page === 0}>
+		<PaginationWrapper start={page === 0} end={page === maxPages}>
 			{page > 0 && (
 				<Input
 					type='image'

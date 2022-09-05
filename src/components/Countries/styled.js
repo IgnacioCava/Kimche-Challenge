@@ -57,6 +57,7 @@ export const Position = styled.div`
 		backdrop-filter: blur(4px);
 		background-color: var(--transparent);
 		border: 2px solid var(--btn-highlight);
+		height: 44px;
 	}
 
 	@media ${device.mobileL} {
