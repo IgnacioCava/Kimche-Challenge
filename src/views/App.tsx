@@ -15,7 +15,7 @@ import {
 } from '../helpers/handlers'
 
 const client = new ApolloClient({
-	uri: 'https://countries.trevorblades.com',
+	uri: process.env.REACT_APP_ENDPOINT,
 	cache: new InMemoryCache()
 })
 
