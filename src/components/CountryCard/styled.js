@@ -13,7 +13,7 @@ export const Country = styled.div`
 	width: 250px;
 `
 
-export const Header = styled.div`
+export const Header = styled(Scrollable)`
 	display: flex;
 	flex-direction: column;
 	overflow: auto;
