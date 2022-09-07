@@ -44,7 +44,11 @@ const App = () => {
 						<Sorter set={(e) => handleSortType(e, setSortType)} value={sort} />
 					</Filters>
 				</Controls>
-				<FetchCountries type={queryType} query={searchedQuery} sort={sort} />
+				<FetchCountries
+					type={queryType}
+					query={searchedQuery.trim()}
+					sort={sort}
+				/>
 			</AppWrapper>
 		</ApolloProvider>
 	)
